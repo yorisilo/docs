@@ -325,17 +325,22 @@ pow x a acc = pow x (a - 1) (x * acc)
 f(n) = 1 if n == 0 or n == 1
 f(n) = f(n-2) + f(n-1)
 
+direct style ver
 ``` haskell
-fib :: Int -> Int -> Int -> Int
-fib n x acc
-  | n == 0    = 1
-  | n == 1    = acc
-  | otherwise = fib (n-1) acc (x + acc)
+fib :: Int -> Int
+fib n
+  | n == 0 || n == 1 = 1
+  | otherwise = fib (n - 1) + fib (n - 2)
 ```
 
-* カウンタ -> n
-* 演算に必要な値 -> x
-* 計算結果 -> acc
+acc ver
+``` haskell
+fib :: Int -> Int -> Int -> Int
+fib n x y
+  | n == 0 = 1
+  | n == 1 = x
+  | otherwise = fib (n -1) (x + y) x
+```
 
 実行過程
 ```
@@ -487,12 +492,35 @@ id (1 : 4 : 3 : [])
 ...
 
 ### fact 関数を CPS で書いてみる
+direct style ver
+``` haskell
+fact :: Int -> Int -> Int
+fact 0 = 1
+fact n = n * fact (n - 1)
+```
+
+<details>
+<summary>acc ver</summary>
+
+``` haskell
+fact :: Int -> Int -> Int
+fact 0 acc = acc
+fact n acc = fact (n - 1) (n * acc)
+```
+
+</details>
+
+
+<details>
+<summary>CPS ver</summary>
 
 ``` haskell
 fact :: Int -> (Int -> Int) -> Int
 fact 0 cont = cont 1
 fact n cont = fact (n-1) (\x -> cont(n*x))
 ```
+
+</details>
 
 実行過程
 
@@ -525,10 +553,27 @@ fib n
 ```
 
 <details>
-<summary>cps ver</summary>
+<summary>acc ver</summary>
 
 ```
+fib' :: Int -> Int -> Int -> Int
+fib' n x y
+  | n == 0 = 1
+  | n == 1 = x
+  | otherwise = fib' (n -1) (x + y) x
+```
 
+</details>
+
+
+<details>
+<summary>CPS ver</summary>
+
+```
+fib'' :: Int -> (Int -> Int) -> Int
+fib'' 0 cont = cont 1
+fib'' 1 cont = cont 1
+fib'' n cont = fib'' (n -1) (\x -> fib'' (n -2) (\y -> cont (x + y)))
 ```
 
 </details>
@@ -563,6 +608,16 @@ fac 1 6 まできたところで一時中断して、別のことをしてから
 書かれたプログラムと呼びます。これと対比して、CPS でない通常のプログラム
 のことを直接形式 direct style と言ったりもします。
 
+## CPS のメリット
+最初はcall-by-nameをcall-by-valueでエミュレーションするために導入されたっぽい。
+
+- 関数適用が常に末尾再帰になる
+- 継続を用いることで評価戦略によらず評価順序が統一できる
+
+理論的にも面白いことはたくさんあり big-step semantics の継続が small-step semantics になっていたりするらしい。
+
+cf. [継続とかの話題サーベイ \| κeenのHappy Hacκing Blog](https://keens.github.io/blog/2019/06/27/keizokutokanowadaisa_bei/)
+
 ## 末尾再帰最適化って何してるのか
 処理系によるが関数呼び出しをループに変換してる
 
@@ -594,6 +649,7 @@ cf.
 * [もしかしたら末尾再帰って簡単なんじゃないか？という話 #Haskell - Qiita](https://qiita.com/Tatsuki-I/items/9f416dc4edbb9161c780)
 * [Scalaではじめる末尾再帰 - Qiita](https://qiita.com/dashiishida/items/c20d6e08a260e3ce0f64)
 * [「末尾呼び出し(tail call)と継続渡し形式(Continuation Passing Style)」 Asai Laboratory, Ochanomizu University](http://pllab.is.ocha.ac.jp/zemi_2.html)
+* [CPS というプログラミングスタイルの導入の話 \- ゆずとみかんといちご](http://yuzumikan15.hatenablog.com/entry/2015/04/24/094610)
 
 # appendix
 ## ラムダ計算

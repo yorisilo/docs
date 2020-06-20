@@ -18,10 +18,10 @@ fib n
 
 -- acc ver
 fib' :: Int -> Int -> Int -> Int
-fib' n x acc
+fib' n x y
   | n == 0 = 1
-  | x == 1 = acc
-  | otherwise = fib' (n -1) acc (x + acc)
+  | n == 1 = x
+  | otherwise = fib' (n -1) (x + y) x
 
 -- cps ver
 fib'' :: Int -> (Int -> Int) -> Int
