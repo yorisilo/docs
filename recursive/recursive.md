@@ -650,6 +650,7 @@ cf.
 * [Scalaではじめる末尾再帰 - Qiita](https://qiita.com/dashiishida/items/c20d6e08a260e3ce0f64)
 * [「末尾呼び出し(tail call)と継続渡し形式(Continuation Passing Style)」 Asai Laboratory, Ochanomizu University](http://pllab.is.ocha.ac.jp/zemi_2.html)
 * [CPS というプログラミングスタイルの導入の話 \- ゆずとみかんといちご](http://yuzumikan15.hatenablog.com/entry/2015/04/24/094610)
+* [型システム入門 −プログラミング言語と型の理論− \| Benjamin C\. Pierce Amazon](https://www.amazon.co.jp/Benjamin-C-Pierce/dp/4274069117/ref=tmm_pap_swatch_0?_encoding=UTF8&qid=&sr=)
 
 # appendix
 ## ラムダ計算
