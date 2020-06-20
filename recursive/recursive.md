@@ -344,13 +344,13 @@ fib n x y
 ```
 fib 5 1 1
 ↓
-fib 4 1 2
+fib 4 2 1
 ↓
-fib 3 2 3
+fib 3 3 2
 ↓
-fib 2 3 5
+fib 2 5 3
 ↓
-fib 1 5 8
+fib 1 8 5
 ↓
 8
 ```
