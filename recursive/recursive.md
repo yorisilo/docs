@@ -555,7 +555,7 @@ fib n
 <details>
 <summary>acc ver</summary>
 
-```
+``` haskell
 fib' :: Int -> Int -> Int -> Int
 fib' n x y
   | n == 0 = 1
@@ -569,7 +569,7 @@ fib' n x y
 <details>
 <summary>CPS ver</summary>
 
-```
+``` haskell
 fib'' :: Int -> (Int -> Int) -> Int
 fib'' 0 cont = cont 1
 fib'' 1 cont = cont 1
