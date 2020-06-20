@@ -1,0 +1,150 @@
+# command-line-arguments
+"".main STEXT size=68 args=0x0 locals=0x20
+	0x0000 00000 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:3)	TEXT	"".main(SB), ABIInternal, $32-0
+	0x0000 00000 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:3)	MOVQ	(TLS), CX
+	0x0009 00009 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:3)	CMPQ	SP, 16(CX)
+	0x000d 00013 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:3)	PCDATA	$0, $-2
+	0x000d 00013 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:3)	JLS	61
+	0x000f 00015 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:3)	PCDATA	$0, $-1
+	0x000f 00015 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:3)	SUBQ	$32, SP
+	0x0013 00019 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:3)	MOVQ	BP, 24(SP)
+	0x0018 00024 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:3)	LEAQ	24(SP), BP
+	0x001d 00029 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:3)	PCDATA	$0, $-2
+	0x001d 00029 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:3)	PCDATA	$1, $-2
+	0x001d 00029 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:3)	FUNCDATA	$0, gclocals·33cdeccccebe80329f1fdbee7f5874cb(SB)
+	0x001d 00029 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:3)	FUNCDATA	$1, gclocals·33cdeccccebe80329f1fdbee7f5874cb(SB)
+	0x001d 00029 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:3)	FUNCDATA	$2, gclocals·33cdeccccebe80329f1fdbee7f5874cb(SB)
+	0x001d 00029 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:4)	PCDATA	$0, $0
+	0x001d 00029 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:4)	PCDATA	$1, $0
+	0x001d 00029 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:4)	MOVQ	$100, (SP)
+	0x0025 00037 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:4)	MOVQ	$1, 8(SP)
+	0x002e 00046 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:4)	CALL	"".factAcc(SB)
+	0x0033 00051 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:5)	MOVQ	24(SP), BP
+	0x0038 00056 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:5)	ADDQ	$32, SP
+	0x003c 00060 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:5)	RET
+	0x003d 00061 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:5)	NOP
+	0x003d 00061 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:3)	PCDATA	$1, $-1
+	0x003d 00061 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:3)	PCDATA	$0, $-2
+	0x003d 00061 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:3)	CALL	runtime.morestack_noctxt(SB)
+	0x0042 00066 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:3)	PCDATA	$0, $-1
+	0x0042 00066 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:3)	JMP	0
+	0x0000 65 48 8b 0c 25 00 00 00 00 48 3b 61 10 76 2e 48  eH..%....H;a.v.H
+	0x0010 83 ec 20 48 89 6c 24 18 48 8d 6c 24 18 48 c7 04  .. H.l$.H.l$.H..
+	0x0020 24 64 00 00 00 48 c7 44 24 08 01 00 00 00 e8 00  $d...H.D$.......
+	0x0030 00 00 00 48 8b 6c 24 18 48 83 c4 20 c3 e8 00 00  ...H.l$.H.. ....
+	0x0040 00 00 eb bc                                      ....
+	rel 5+4 t=17 TLS+0
+	rel 47+4 t=8 "".factAcc+0
+	rel 62+4 t=8 runtime.morestack_noctxt+0
+"".factAcc STEXT size=113 args=0x18 locals=0x20
+	0x0000 00000 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:43)	TEXT	"".factAcc(SB), ABIInternal, $32-24
+	0x0000 00000 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:43)	MOVQ	(TLS), CX
+	0x0009 00009 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:43)	CMPQ	SP, 16(CX)
+	0x000d 00013 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:43)	PCDATA	$0, $-2
+	0x000d 00013 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:43)	JLS	106
+	0x000f 00015 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:43)	PCDATA	$0, $-1
+	0x000f 00015 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:43)	SUBQ	$32, SP
+	0x0013 00019 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:43)	MOVQ	BP, 24(SP)
+	0x0018 00024 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:43)	LEAQ	24(SP), BP
+	0x001d 00029 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:43)	PCDATA	$0, $-2
+	0x001d 00029 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:43)	PCDATA	$1, $-2
+	0x001d 00029 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:43)	FUNCDATA	$0, gclocals·33cdeccccebe80329f1fdbee7f5874cb(SB)
+	0x001d 00029 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:43)	FUNCDATA	$1, gclocals·33cdeccccebe80329f1fdbee7f5874cb(SB)
+	0x001d 00029 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:43)	FUNCDATA	$2, gclocals·33cdeccccebe80329f1fdbee7f5874cb(SB)
+	0x001d 00029 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:44)	PCDATA	$0, $0
+	0x001d 00029 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:44)	PCDATA	$1, $0
+	0x001d 00029 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:44)	MOVQ	"".n+40(SP), AX
+	0x0022 00034 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:44)	TESTQ	AX, AX
+	0x0025 00037 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:44)	JNE	59
+	0x0027 00039 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:45)	MOVQ	"".acc+48(SP), AX
+	0x002c 00044 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:45)	MOVQ	AX, "".~r2+56(SP)
+	0x0031 00049 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:45)	MOVQ	24(SP), BP
+	0x0036 00054 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:45)	ADDQ	$32, SP
+	0x003a 00058 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:45)	RET
+	0x003b 00059 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:47)	LEAQ	-1(AX), CX
+	0x003f 00063 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:47)	MOVQ	CX, (SP)
+	0x0043 00067 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:47)	MOVQ	"".acc+48(SP), CX
+	0x0048 00072 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:47)	IMULQ	CX, AX
+	0x004c 00076 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:47)	MOVQ	AX, 8(SP)
+	0x0051 00081 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:47)	CALL	"".factAcc(SB)
+	0x0056 00086 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:47)	MOVQ	16(SP), AX
+	0x005b 00091 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:47)	MOVQ	AX, "".~r2+56(SP)
+	0x0060 00096 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:47)	MOVQ	24(SP), BP
+	0x0065 00101 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:47)	ADDQ	$32, SP
+	0x0069 00105 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:47)	RET
+	0x006a 00106 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:47)	NOP
+	0x006a 00106 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:43)	PCDATA	$1, $-1
+	0x006a 00106 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:43)	PCDATA	$0, $-2
+	0x006a 00106 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:43)	CALL	runtime.morestack_noctxt(SB)
+	0x006f 00111 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:43)	PCDATA	$0, $-1
+	0x006f 00111 (/Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go:43)	JMP	0
+	0x0000 65 48 8b 0c 25 00 00 00 00 48 3b 61 10 76 5b 48  eH..%....H;a.v[H
+	0x0010 83 ec 20 48 89 6c 24 18 48 8d 6c 24 18 48 8b 44  .. H.l$.H.l$.H.D
+	0x0020 24 28 48 85 c0 75 14 48 8b 44 24 30 48 89 44 24  $(H..u.H.D$0H.D$
+	0x0030 38 48 8b 6c 24 18 48 83 c4 20 c3 48 8d 48 ff 48  8H.l$.H.. .H.H.H
+	0x0040 89 0c 24 48 8b 4c 24 30 48 0f af c1 48 89 44 24  ..$H.L$0H...H.D$
+	0x0050 08 e8 00 00 00 00 48 8b 44 24 10 48 89 44 24 38  ......H.D$.H.D$8
+	0x0060 48 8b 6c 24 18 48 83 c4 20 c3 e8 00 00 00 00 eb  H.l$.H.. .......
+	0x0070 8f                                               .
+	rel 5+4 t=17 TLS+0
+	rel 82+4 t=8 "".factAcc+0
+	rel 107+4 t=8 runtime.morestack_noctxt+0
+go.cuinfo.packagename.main SDWARFINFO dupok size=0
+	0x0000 6d 61 69 6e                                      main
+go.loc."".main SDWARFLOC size=0
+go.info."".main SDWARFINFO size=35
+	0x0000 03 6d 61 69 6e 2e 6d 61 69 6e 00 00 00 00 00 00  .main.main......
+	0x0010 00 00 00 00 00 00 00 00 00 00 00 01 9c 00 00 00  ................
+	0x0020 00 01 00                                         ...
+	rel 11+8 t=1 "".main+0
+	rel 19+8 t=1 "".main+68
+	rel 29+4 t=30 gofile../Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go+0
+go.range."".main SDWARFRANGE size=0
+go.debuglines."".main SDWARFMISC size=16
+	0x0000 04 02 11 0a a5 9c 06 5f 06 9c 71 04 01 03 7e 01  ......._..q...~.
+go.loc."".factAcc SDWARFLOC size=71
+	0x0000 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+	0x0010 01 00 9c 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+	0x0020 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+	0x0030 00 00 00 02 00 91 08 00 00 00 00 00 00 00 00 00  ................
+	0x0040 00 00 00 00 00 00 00                             .......
+	rel 0+8 t=53 "".factAcc+0
+	rel 8+8 t=53 "".factAcc+113
+	rel 35+8 t=53 "".factAcc+0
+	rel 43+8 t=53 "".factAcc+113
+go.info."".factAcc SDWARFINFO size=78
+	0x0000 03 6d 61 69 6e 2e 66 61 63 74 41 63 63 00 00 00  .main.factAcc...
+	0x0010 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 9c  ................
+	0x0020 00 00 00 00 01 10 6e 00 00 2b 00 00 00 00 00 00  ......n..+......
+	0x0030 00 00 10 61 63 63 00 00 2b 00 00 00 00 00 00 00  ...acc..+.......
+	0x0040 00 0f 7e 72 32 00 01 2b 00 00 00 00 00 00        ..~r2..+......
+	rel 0+0 t=24 type.int+0
+	rel 14+8 t=1 "".factAcc+0
+	rel 22+8 t=1 "".factAcc+113
+	rel 32+4 t=30 gofile../Users/joishi/src/github.com/yorisilo/docs/recursive/go-sandbox/main.go+0
+	rel 42+4 t=29 go.info.int+0
+	rel 46+4 t=29 go.loc."".factAcc+0
+	rel 57+4 t=29 go.info.int+0
+	rel 61+4 t=29 go.loc."".factAcc+35
+	rel 72+4 t=29 go.info.int+0
+go.range."".factAcc SDWARFRANGE size=0
+go.debuglines."".factAcc SDWARFMISC size=26
+	0x0000 04 02 03 25 14 0a a5 9c 06 41 06 42 06 41 06 a7  ...%.....A.B.A..
+	0x0010 06 37 06 08 c9 04 01 03 56 01                    .7......V.
+go.string."0w\xaf\f\x92t\b\x02A\xe1\xc1\a\xe6\xd6\x18\xe6path\tcommand-line-arguments\nmod\tgo-sandbox\t(devel)\t\n\xf92C1\x86\x18 r\x00\x82B\x10A\x16\xd8\xf2" SRODATA dupok size=84
+	0x0000 30 77 af 0c 92 74 08 02 41 e1 c1 07 e6 d6 18 e6  0w...t..A.......
+	0x0010 70 61 74 68 09 63 6f 6d 6d 61 6e 64 2d 6c 69 6e  path.command-lin
+	0x0020 65 2d 61 72 67 75 6d 65 6e 74 73 0a 6d 6f 64 09  e-arguments.mod.
+	0x0030 67 6f 2d 73 61 6e 64 62 6f 78 09 28 64 65 76 65  go-sandbox.(deve
+	0x0040 6c 29 09 0a f9 32 43 31 86 18 20 72 00 82 42 10  l)...2C1.. r..B.
+	0x0050 41 16 d8 f2                                      A...
+""..inittask SNOPTRDATA size=24
+	0x0000 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+	0x0010 00 00 00 00 00 00 00 00                          ........
+runtime.modinfo SDATA size=16
+	0x0000 00 00 00 00 00 00 00 00 54 00 00 00 00 00 00 00  ........T.......
+	rel 0+8 t=1 go.string."0w\xaf\f\x92t\b\x02A\xe1\xc1\a\xe6\xd6\x18\xe6path\tcommand-line-arguments\nmod\tgo-sandbox\t(devel)\t\n\xf92C1\x86\x18 r\x00\x82B\x10A\x16\xd8\xf2"+0
+type..importpath.unsafe. SRODATA dupok size=9
+	0x0000 00 00 06 75 6e 73 61 66 65                       ...unsafe
+gclocals·33cdeccccebe80329f1fdbee7f5874cb SRODATA dupok size=8
+	0x0000 01 00 00 00 00 00 00 00                          ........

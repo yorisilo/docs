@@ -14,18 +14,23 @@
 * golang では末尾再帰最適化できるか
   * アセンブリを見てみる
 
+# ハンズオンの環境
+扱う言語は何でもいいのですが、今回は haskell と golang で説明していきます。
+
+- haskell のオンライン実行環境: https://paiza.io/projects/UaK7d0V4vlEaPBS-UaSRlw?locale=ja-jp
+- golang のオンライン実行環境: https://play.golang.org/
+
 # 末尾再帰
-cf.
-* [Haskellの文法(再帰編) - あどけない話](https://kazu-yamamoto.hatenablog.jp/entry/20110829/1314584585)
-* [Haskell コード片鑑賞：「再帰」編 - Qiita](https://qiita.com/nobsun/items/6c2fa63f294dbd98d5cb)
-* [もしかしたら末尾再帰って簡単なんじゃないか？という話 #Haskell - Qiita](https://qiita.com/Tatsuki-I/items/9f416dc4edbb9161c780)
-* [Scalaではじめる末尾再帰 - Qiita](https://qiita.com/dashiishida/items/c20d6e08a260e3ce0f64)
-* [「末尾呼び出し(tail call)と継続渡し形式(Continuation Passing Style)」 Asai Laboratory, Ochanomizu University](http://pllab.is.ocha.ac.jp/zemi_2.html)
+## for 文 :-1: -> 再帰関数 :+1:
+> 多くの言語では、素朴な繰り返しを実現するためには for 文や while 文を使います。
+> for文を単純に数え上げとして使う場合、カウンターである変数 i が再代入できるとことが前提になっています。
+> Haskell では、変数に再代入はできません。それは、for 文がないことを意味します。どうやって、繰り返しを実現するのでしょうか？ その答えは、再帰です。
+cf. [Haskellの文法\(再帰編\) \- あどけない話](https://kazu-yamamoto.hatenablog.jp/entry/20110829/1314584585)
 
-## for 文
-多くの言語では、素朴な繰り返しを実現するためには for 文や while 文を使います。for文を単純に数え上げとして使う場合、カウンターである変数 i が再代入できるとことが前提になっています。
-
-Haskell では、変数に再代入はできません。それは、for 文がないことを意味します。どうやって、繰り返しを実現するのでしょうか？ その答えは、再帰です。
+再帰関数では、
+- 再代入を行う必要が無くなる(参照透過性を担保し副作用の排除に一役買っている)
+- 複雑なアルゴリズムを少ないコードで表現できる。漸化式などを直接エンコードしやすい
+- 無限の構造をコードに落とすことが容易 -> 具体例: http://wosugi.hatenablog.com/entry/20090721/1249097807
 
 ## なぜ普通の再帰よりも末尾再帰が(計算効率的に)良いのか
 * 再帰は普通に書くとスタックをたくさん消費してしまう。コールスタックを消費することによるスタックオーバーフローやメモリ不足を引き起こしてしまう可能性がある
@@ -34,13 +39,25 @@ Haskell では、変数に再代入はできません。それは、for 文が�
 （正確には「末尾呼び出しは容易にジャンプに変換できる。末尾再帰は末尾呼び出しの対象が自身になっているという特殊ケースであり、ループに変換できる」）
 > 再帰関数はwhileのようなジャンプ制御ではなく、関数内部で自分自身を再帰的に呼び出すことでループを表現します。その特性上、自分自身を大量に呼び出す必要があるケースが少なくありません。再帰呼び出しでもコールスタックを積んでいくので、メモリを消費してしまいスタックオーバーフローやメモリ不足に陥ることがあります。
 > 再帰関数を、末尾再帰と呼ばれる再帰パターンで記述することで、言語によっては最適化を行えます。この最適化によって、コールスタックを消費する関数呼び出しではなく、ジャンプ制御に変換されます。ジャンプ制御に変換されることで、処理が高速になったり、スタックオーバーフローやメモリ不足に陥ることを防ぐことができます。
+cf. [Haskellの文法\(再帰編\) \- あどけない話](https://kazu-yamamoto.hatenablog.jp/entry/20110829/1314584585)
 
 例:
 
+haskell
 ``` haskell
 fact :: Int -> Int
 fact 0 = 1
 fact n = n * (fact $ n - 1)
+```
+
+golang
+``` golang
+func fact(n int) int {
+	if n == 0 {
+		return 1
+	}
+	return n * fact(n-1)
+}
 ```
 
 実行過程
@@ -126,9 +143,6 @@ fact 0 24
 このように、関数を呼び出した後に(スタックが)覚えておかなくてはならない作業がないような関数呼び出しのことを「末尾呼び出し(tail call)」と言います。(関数呼び出しのときに自分自身を呼び出すか、定数を呼ぶか)
 再帰呼び出しが末尾呼び出しになっている場合、それを末尾再帰(tail recursion)と呼びます。
 
-### 閑話休題
-「ループで書けるのに再帰で書くのは馬鹿げている」という意見がありますが、それは動的型付けの言語で考えているからです。静的型付けの言語では、再帰の部分で型検査の洗礼を受け、間違いが入り込みにくくなります。僕個人は、JavaScript などで for 文を書くとき、自分のコードに自信が持てなくてとても不安になります。一方、Haskell で再帰を書くと安心できます。Haskell のコンパイラーがたくさんの間違いを探してくれますからね。
-
 ## 再帰でも break とか continue とか表現できるよ
 ### break
 例として、配列の中に -1 を発見したら足し算を止め、それまでに計算した和を返す関数を考えます。
@@ -153,7 +167,7 @@ haskell
 sum1 :: [Int] -> Int
 sum1 [] = 0
 sum1 x:xs
-     | x == -1 = sum1 []
+     | x == -1 = sum1 [] -- break に相当
      | otherwise = x + sum1 xs
 
 -- acc を使った break
@@ -194,10 +208,10 @@ func sum2(xs []int) int {
 
 ``` haskell
 -- 普通の再帰での continue
-sum1 :: [Int] -> Int
-sum1 [] = 0
-sum1 x:xs =
-     | x < 0     = sum1 xs
+sum2 :: [Int] -> Int
+sum2 [] = 0
+sum2 x:xs =
+     | x < 0     = sum1 xs -- continue に相当
      | otherwise = x + sum1 xs
 
 -- acc を使った continue
@@ -218,28 +232,28 @@ sum2 xs = f xs 0
 ```
 
 ### 閑話休題：節度を知る
-変な話なのですが、再帰をよく理解したら、なるべく(陽に)再帰を使ってはいけません。上記の例を見ると再帰が goto 文のように思えた人がいるかもしれませんが、その直観はあたっています。再帰はいろんなことが実現できるので、読み手には理解しずらいのです。
-
-熟達した Haskeller は、以下のような力の階層を理解しています。
-
-* 再帰
-* foldr、foldl など
-* filter、take など
-
-上が力が強く、下へ行くほど力が弱くなります。力が強いと何でもできてしまうので、コードの意図が不明瞭となり、また間違いが入り込みやすくなります。力が弱いとできることは限られるのでコードの意図は明確となり、間違いが入りにくくなります。
-
-「目的に合う一番力の弱い手段を使う」のがよいプログラムを書くための大原則です。たとえば、草を刈るのにチェーンソーは使うべきではありません。もちろん草も切れますが、大切な植木も傷つけてしまうかもしれませんから。
-
-これまでのコードは、再帰を(陽に)使わなくとも、以下のように実現できます。
+> 変な話なのですが、再帰をよく理解したら、なるべく(陽に)再帰を使ってはいけません。上記の例を見ると再帰が goto 文のように思えた人がいるかもしれませんが、その直観はあたっています。再帰はいろんなことが実現できるので、読み手には理解しずらいのです。
+> 熟達した Haskeller は、以下のような力の階層を理解しています。
+> * 再帰
+> * foldr、foldl など
+> * filter、take など
+>
+> 上が力が強く、下へ行くほど力が弱くなります。力が強いと何でもできてしまうので、コードの意図が不明瞭となり、また間違いが入り込みやすくなります。力が弱いとできることは限られるのでコードの意図は明確となり、間違いが入りにくくなります。
+>
+> 「目的に合う一番力の弱い手段を使う」のがよいプログラムを書くための大原則です。たとえば、草を刈るのにチェーンソーは使うべきではありません。もちろん草も切れますが、大切な植木も傷つけてしまうかもしれませんから。
+>
+> これまでのコードは、再帰を(陽に)使わなくとも、以下のように実現できます。
 
 ``` haskell
-sum0'' = foldr (+) 0
-sum1' = sum0'' . takeWhile (/= -1)
-sum2' = sum0'' . filter (>=0)
+sum0 = foldr (+) 0
+sum1 = sum0 . takeWhile (/= -1) -- takeWhile は break に使える
+sum2 = sum0 . filter (>=0) -- filter は continue に使える
 ```
 
-再帰を(陽に)使わなければ、こんなに意味が分かりやすくなるのです。なお、foldr や takeWhile 自体は再帰を使って実装されています
+cf. foldr について: http://succzero.hatenablog.com/entry/2013/12/07/234808
 
+> 再帰を(陽に)使わなければ、こんなに意味が分かりやすくなるのです。なお、foldr や takeWhile 自体は再帰を使って実装されています
+また、そのようなプリミティブを使うことで普通に自分で再帰関数を使うよりも実行速度も速くや実行効率の良いプログラムになりやすい。
 
 ## 末尾再帰 アキュムレータver を書くときのコツ
 処理系が対応していれば末尾再帰最適化は大体ループに変換している。
@@ -267,7 +281,7 @@ func fact(n int) int {
 
 がある
 
-末尾再帰するときはこれを引数の中で行えばよい。
+末尾再帰するときはこれをトップレベルの引数の中で行えばよい。
 
 階乗関数 末尾再帰 acc ver 再掲
 
@@ -285,17 +299,29 @@ fact n acc = fact (n - 1) (acc * n)
 ### 累乗
 `x^a`
 
+``` golang
+func pow(x, a int) int {
+	sum := 1
+	for i := a; i > 0; i-- {
+		sum = x * sum
+	}
+	return sum
+}
+```
+
+* カウンタ -> i
+* 演算に必要な値 -> x
+* 計算結果 -> acc
+
 ``` haskell
 pow :: Int -> Int -> Int -> Int
 pow x 0 acc = acc
 pow x a acc = pow x (a - 1) (x * acc)
 ```
 
-* カウンタ -> a
-* 演算に必要な値 -> x
-* 計算結果 -> acc
-
 ### Fibonacci
+次は普通のダイレクトスタイルの再帰関数からaccを使った末尾再帰に変換してみる
+
 f(n) = 1 if n == 0 or n == 1
 f(n) = f(n-2) + f(n-1)
 
@@ -330,6 +356,48 @@ cf.
 * [もしかしたら末尾再帰って簡単なんじゃないか？という話 #Haskell - Qiita](https://qiita.com/Tatsuki-I/items/9f416dc4edbb9161c780)
 
 ## 末尾再帰 継続渡しスタイル cps ver
+- ダイレクトスタイルの再帰関数から末尾再帰関数に変換することで関数呼び出しの順番が変わってしまう。
+
+ダイレクトスタイル再帰
+``` haskell
+fact :: Int -> Int
+fact 0 = 1
+fact n = n * fact(n-1)
+```
+
+実行過程
+```
+fact 3
+↓
+3 * (fact 2)
+↓
+3 * (2 fact 1)
+↓
+3 * (2 * (1 fact 0))
+↓
+3 * (2 * (1 * (1)))
+...
+```
+
+末尾再帰 acc ver
+``` haskell
+fact :: Int -> Int -> Int
+fact 0 acc = acc
+fact n acc = fact (n - 1) (acc * n)
+```
+
+```
+fact 3 1
+↓
+fact 2 (3 * 1)
+↓
+fact 1 (3 * 2)
+↓
+fact 0 (6 * 1)
+↓
+6
+```
+
 ここで、上の末尾再帰の例で階乗の計算はどのように行われているか
 少し見直してみましょう。
 末尾再帰に変換する前は
@@ -355,7 +423,7 @@ positive x:xs =
 
 ``` haskell
 positive :: [Int] -> [Int] -> [Int]
-positive [] acc = acc
+positive []   acc = acc
 positive x:xs acc =
   | x > 0     = positive xs (acc ++ [x])
 --| x > 0     = positive xs (x:acc) だと [1,2,3] ~> [3,2,1] のように順番が変わってしまう
@@ -369,36 +437,56 @@ positive x:xs acc =
 
 ``` haskell
 positive :: [Int] -> ([Int] -> [Int]) -> [Int]
-positive [] cont   = cont []
-positive x:xs cont =
-  | x > 0     = positive xs (\r -> cont(x:r))
+positive [] cont = cont []
+positive (x : xs) cont
+  | x > 0 = positive xs (\acc -> cont (x : acc))
   | otherwise = positive xs cont
-```
-
-実行過程
-
-```
-positive [1; -2; 4; 3] id
--> positive [-2; 4; 3] (\ result -> id (1 :: result))
--> positive [4; 3] (\ result -> id (1 :: result))
--> positive [3] (\ result -> (\ result -> id (1 :: result)) (4 :: result))
-= positive [3] (\ result -> id (1 :: 4 :: result))
--> positive [] (\ result -> (\ result -> id (1 :: 4 :: result)) (3 :: result))
-= positive [] (\ result -> id (1 :: 4 :: 3 :: result))
--> (\ result -> id (1 :: 4 :: 3 :: result)) []
--> id (1 :: 4 :: 3 :: [])
--> 1 :: 4 :: 3 :: []
-= [1; 4; 3]
 ```
 
 ここで cont は「継続(continuation)」と呼ばれます。
 直観的には、「その計算が終わったあとにする計算」を表します。
 上の関数を次のように呼び出したとすると、以下のように実行されていきます。
-（ここで、id とは恒等関数で、具体的には \x -> x とします。）
-ちなみに、上の実行例で = で結ばれているところは、わかりやすくするため
-に簡略化しましたが、call-by-value の実行では実際には簡略化されません。
+（ここで、id とは恒等関数で、具体的には `\x -> x` とします。）
 
-### cps で書かれた fact 関数
+実行過程
+
+```
+positive [1, -2, 4, 3] id
+↓
+positive [-2, 4, 3] (\acc -> id (1 : acc))
+↓
+positive [4, 3] (\acc -> id (1 : acc))
+↓
+positive [3] (\acc -> (\ acc -> id (1 : acc)) (4 : acc))
+= positive [3] (\acc -> id (1 : 4 : acc))
+↓
+positive [] (\acc -> (\ acc -> id (1 : 4 : acc)) (3 : acc))
+= positive [] (\acc -> id (1 : 4 : 3 : acc))
+↓
+(\ acc -> id (1 : 4 : 3 : acc)) []
+↓
+id (1 : 4 : 3 : [])
+↓
+1 : 4 : 3 : []
+↓
+[1, 4, 3]
+```
+
+ちなみに、上の実行例で = で結ばれているところは、わかりやすくするために簡略化しましたが、call-by-value の実行では実際には簡略化されません。
+
+### 閑話休題: 評価戦略について
+評価戦略(引数の呼び出し方)には以下のように色々とあるので調べてるみると面白いと思います。
+
+正格評価: 関数の引数が常にその関数に引き渡される前に完全に評価される
+- call-by-value: 大体の言語はこれが使われてる
+...
+
+遅延評価(正格でない評価): 関数の引数は関数本体の評価で実際に使われるまで評価されない。
+- call-by-name
+- call-by-need: call-by-name をメモ化したようなやつ。 haskell とかで使われてる
+...
+
+### fact 関数を CPS で書いてみる
 
 ``` haskell
 fact :: Int -> (Int -> Int) -> Int
@@ -410,14 +498,41 @@ fact n cont = fact (n-1) (\x -> cont(n*x))
 
 ```
 fact 4 id
+↓
 fact 3 (\x -> id(4 * x))
+↓
 fact 2 (\x -> ((\x -> id(4 * x))(3 * x)))
+↓
 fact 1 (\x -> (((\x -> id(4 * x))(3 * x))(2 * x)))
+↓
 fact 0 (\x -> ((((\x -> id(4 * x))(3 * x))(2 * x))(1 * x)))
+↓
 (\x -> ((((\x -> id(4 * x))(3 * x))(2 * x))(1 * x))) 1
-~> 4*3*2*1
--> 24
+↓...
+4 * (3 * (2 * (1)))
+↓
+24
 ```
+
+### n 番目のフィボナッチ数列を計算する末尾再帰 cps ver を書いてみましょう！
+
+ダイレクトスタイル
+``` haskell
+fib :: Int -> Int
+fib n
+  | n == 0 || n == 1 = 1
+  | otherwise = fib (n - 1) + fib (n - 2)
+```
+
+<details>
+<summary>cps ver</summary>
+
+```
+
+```
+
+</details>
+
 
 cf.
 * [末尾呼び出し(tail call)と継続渡し形式(Continuation Passing Style): Asai Laboratory, Ochanomizu University](http://pllab.is.ocha.ac.jp/zemi_2.html)
@@ -448,24 +563,56 @@ fac 1 6 まできたところで一時中断して、別のことをしてから
 書かれたプログラムと呼びます。これと対比して、CPS でない通常のプログラム
 のことを直接形式 direct style と言ったりもします。
 
-## golang で末尾再帰最適化ができるか
-末尾再帰最適化って何してるのか。 => 処理系によるが、 ループに変換してる
-
-結論：できない
+## 末尾再帰最適化って何してるのか
+処理系によるが関数呼び出しをループに変換してる
 
 * 関数呼び出し自体のパフォーマンス
 * コールスタックの最適化
+  * (再帰の場合、スタック領域の初期化、パラメーターの引渡し（値渡しならコピーが必要）、関数へのジャンプ、関数からのリターン処理、が必要ですが、ループにはこれらが必要ない)
 
-が再帰関数のパフォーマンスに寄与してくる
+が再帰関数のパフォーマンスに寄与してくるので、再帰関数を書くときは極力末尾再帰したほうが良い(処理系によっては末尾再帰最適化が効かないのでそもそも再帰関数を書かないほうが良いこともある…)
 
-関数呼び出し自体はgoroutineの管理などもあり、そもそもがgoroutineを大量に呼べるようにスタックサイズがデフォルトで小さく設定されていて、かつ自動で管理するようにランタイムで調整が入る。
-Goではスタックトレースで表示されることが大事なので、敢えて最適化していないという状況なので仕方ないかなと思います。
+## golang で末尾再帰最適化ができるか
+- 結論： golang ではできない
+
+> 関数呼び出し自体はgoroutineの管理などもあり、そもそもがgoroutineを大量に呼べるようにスタックサイズがデフォルトで小さく設定されていて、かつ自動で管理するようにランタイムで調整が入る。
+> Goではスタックトレースで表示されることが大事なので、敢えて最適化していないという状況なので仕方ないかなと思います。
 * [Tail call optimization - Google グループ](https://groups.google.com/forum/#!msg/golang-nuts/nOS2FEiIAaM/miAg83qEn-AJ)
+
+``` shell
+# アセンブリコードの出力
+go build -gcflags -S main.go
+```
 
 cf.
 * [Goで再帰使うと遅くなりますがそれが何だ - YAMAGUCHI::weblog](https://ymotongpoo.hatenablog.com/entry/2015/02/23/165341)
 * [goで末尾再帰最適化は使えるか？](https://www.slideshare.net/moritakuma1/go-77362467)
 
+## 参考文献
+* [Haskellの文法(再帰編) - あどけない話](https://kazu-yamamoto.hatenablog.jp/entry/20110829/1314584585)
+* [Haskell コード片鑑賞：「再帰」編 - Qiita](https://qiita.com/nobsun/items/6c2fa63f294dbd98d5cb)
+* [もしかしたら末尾再帰って簡単なんじゃないか？という話 #Haskell - Qiita](https://qiita.com/Tatsuki-I/items/9f416dc4edbb9161c780)
+* [Scalaではじめる末尾再帰 - Qiita](https://qiita.com/dashiishida/items/c20d6e08a260e3ce0f64)
+* [「末尾呼び出し(tail call)と継続渡し形式(Continuation Passing Style)」 Asai Laboratory, Ochanomizu University](http://pllab.is.ocha.ac.jp/zemi_2.html)
+
+# appendix
+## ラムダ計算
+- チャーチの提唱(チャーチ チューリングの提唱): チューリングマシンで表現できるプログラム = ラムダ項で表現できる関数の集合 = コンピュータで計算可能な関数の集合 = 再帰関数のクラス(Rクラス？)
+
+## (複雑性)クラス
+計算量理論などなど色んな所で使われるクラスについて
+
+- P: 多項式時間のアルゴリズムがある問題。 大雑把に言うなら早く計算できる問題
+- NP: 解の検証が多項式時間でできる問題のクラス
+- NP完全: 解の検証は多項式時間でできるが、解を求める多項式時間アルゴリズムは今のところ知られていないもの
+- NP困難: 非形式的に言うとNPに属する任意の関数と比べて同等以上に難しい問題
+- 決定不可能: 計算可能じゃないクラス
+
+- NP完全問題の例: 最大クリーク、 最大独立点集合、3SAT、 2分割、点彩色、etc...
+- P問題の例: 極大クリーク、 最大マッチング、2SAT、
+- 決定不能問題の例: 停止問題
+
+cf. https://blog.tiqwab.com/2017/03/09/computable-function.html
 
 ## 再帰をループに展開
 

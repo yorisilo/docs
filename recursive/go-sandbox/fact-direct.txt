@@ -1,0 +1,2 @@
+# command-line-arguments
+./main.go:40:13: undefined: fact

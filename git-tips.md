@@ -64,3 +64,15 @@ git merge origin/master
 コンフリクト修正
 git add hoge or git merge --theirs # origin/master のものを優先して取り込む
 git merge --continue
+
+## git stash pop をなかったことにする
+こっちの方法は、未コミットの変更も失われるので注意
+git reset --hard HEAD
+cf. [Discard Git Stash Pop - Stack Overflow](https://stackoverflow.com/questions/20038056/discard-git-stash-pop)
+
+こっちは変更は失われない？
+git checkout --ours .
+git reset
+git checkout .
+
+cf. [git stash popでconflictしたのをabortする方法。 - regepanのはてなブログ](https://regepan.hateblo.jp/entry/2014/10/15/083101)
