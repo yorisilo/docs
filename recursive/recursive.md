@@ -164,7 +164,7 @@ haskell
 -- 普通の再帰での break
 sum1 :: [Int] -> Int
 sum1 [] = 0
-sum1 x:xs
+sum1 (x:xs)
      | x == -1 = sum1 [] -- break に相当
      | otherwise = x + sum1 xs
 
@@ -172,7 +172,7 @@ sum1 x:xs
 sum1 :: [Int] -> Int -> Int
 sum1 []     acc = acc
 sum1 (x:xs) acc
-      | y == -1   = acc -- ここが break に相当する break の目的はその時点での計算結果を返せば良いのでそれを返せばおｋ
+      | x == -1   = acc -- ここが break に相当する break の目的はその時点での計算結果を返せば良いのでそれを返せばおｋ
       | otherwise = sum1 xs (x + acc)
 
 -- acc を使った末尾再帰関数を隠匿する方法
