@@ -1,7 +1,10 @@
 package main
 
+import "fmt"
+
 func main() {
 	factAcc(100, 1)
+	fmt.Printf("a")
 }
 
 // func pow(x, a int) int {

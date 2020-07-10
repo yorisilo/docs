@@ -382,6 +382,8 @@ fact 3
 ...
 ```
 
+`3 * (2 * (1 * 1))`
+
 末尾再帰 acc ver
 ``` haskell
 fact :: Int -> Int -> Int
@@ -392,7 +394,7 @@ fact n acc = fact (n - 1) (acc * n)
 ```
 fact 3 1
 ↓
-fact 2 (3 * 1)
+fact 2 (1 * 3)
 ↓
 fact 1 (3 * 2)
 ↓
@@ -401,12 +403,34 @@ fact 0 (6 * 1)
 6
 ```
 
+`((1 * 3) * 2 ) * 1`
+
+``` haskell
+fact :: Int -> Int -> Int
+fact 0 acc = acc
+fact n acc = fact (n - 1) (n * acc)
+```
+
+``` haskell
+fact 3 1
+↓
+fact 2 (3 * 1)
+↓
+fact 1 (2 * 3)
+↓
+fact 0 (1 * 6)
+↓
+6
+```
+
+`1 * (2 * (3 * 1))`
+
 ここで、上の末尾再帰の例で階乗の計算はどのように行われているか
 少し見直してみましょう。
 末尾再帰に変換する前は
     `3 * (2 * (1 * 1))`
 のようにかけ算をしていましたが、末尾再帰に変換したものでは
-    `((3 * 1) * 2 ) * 1`
+    `((1 * 3) * 2) * 1` や `1 * (2 * (3 * 1))`
 のようにかけ算が行われます。
 変換後は、かけ算をする順序が変わってしまっています。
 かけ算では順序が変わってもそう問題は起こりませんが、
@@ -477,6 +501,11 @@ id (1 : 4 : 3 : [])
 
 ちなみに、上の実行例で = で結ばれているところは、わかりやすくするために簡略化しましたが、call-by-value の実行では実際には簡略化されません。
 
+- call-by-value: 最も右側のredex(`(λx. N) M`となってるようなラムダ抽象)から簡約する評価戦略で、ラムダの中は簡約しないやつ。いわゆる一般的な言語の評価戦略
+
+CPS 変換のコツ
+- 関数呼び出し時に、その関数が実行された後の処理(継続、コールバック関数)を渡し、関数の処理の終わりに、継続を実行するようにする
+
 ### 閑話休題: 評価戦略について
 評価戦略(引数の呼び出し方)には以下のように色々とあるので調べてるみると面白いと思います。
 
@@ -488,6 +517,29 @@ id (1 : 4 : 3 : [])
 - call-by-name
 - call-by-need: call-by-name をメモ化したようなやつ。 haskell とかで使われてる
 ...
+
+cf.
+- [Call\-by\-needを採用した言語のインタプリタの実装 \- fetburner\.core](https://fetburner.hatenablog.com/entry/2016/12/08/051815)
+- [β基 \- mrsekut\-p](https://scrapbox.io/mrsekut-p/%CE%B2%E5%9F%BA)
+
+### add 関数を CPS で書いてみる (再帰じゃない関数でも CPS できるよ)
+
+``` haskell
+add :: Int -> Int -> Int
+add x y = x + y
+```
+
+``` haskell
+add' :: Int -> Int -> (Int -> Int) -> Int
+add' x y cont = cont (x + y)
+
+main = do
+  show (add 1 2)
+  add' 1 2 (\x -> show x)
+```
+
+cf.
+- [CPS \- mrsekut\-p](https://scrapbox.io/mrsekut-p/CPS)
 
 ### fact 関数を CPS で書いてみる
 direct style ver
@@ -595,15 +647,43 @@ cf.
 > 継続を渡すことで全ての関数呼び出しを末尾呼び出しの形で書いたプログラムのことを継続渡し形式(CPS : Continuation Passing Style)で
 > 書かれたプログラムと呼びます。これと対比して、CPS でない通常のプログラムのことを直接形式 direct style と言ったりもします。
 
+
+## どういうときに使われるか
+(中間表現としての CPS について自分はよくわかってないのだけど、一応触れておく)
+
+コンパイラが AST を変換し、中間表現として、CPS を使うことがある。
+
+関数型言語ではコンパイラが中間表現として、 CPS を採用することが多く、
+手続き型言語では、あまり採用されない(多分…)
+
+一般にコンパイラが成果物として出力するコードはかなり低水準な言語なので、
+あるプログラミング言語で記述されたコードとは抽象度に大きな隔たりがある。
+
+そのギャップを一足飛びに埋めるのは大変なので、多くのコンパイラでは中間表現というものを採用している。
+また、中間表現を採用することでコンパイラの各処理をモジュール分割しやすくなったり、最適化をやりやすくなったりする。
+
+コンパイラの動作
+```
+ソースコード -字句解析-> トークン -構文解析-> AST -意味解析(ASTのトラバース)-> 中間表現 -コード生成-> 目的コード
+```
+
+> ソースコードをASTに変換し意味検査を行うフロントエンド、中間表現に変換し最適化を行うミドルエンド、中間表現から目的コードへの変換を行うバックエンドに分割できます。
+
+cf.
+- [コンパイラの中間表現いろいろ \- Qiita](https://qiita.com/takoeight0821/items/073ff1333d1b019f4420)
+- [compiler resume 3](https://www.is.s.u-tokyo.ac.jp/vu/jugyo/processor/process/soft/compilerresume/coverq3/coverq3.html)
+
 ## CPS のメリット
 最初はcall-by-nameをcall-by-valueでエミュレーションするために導入されたっぽい。
 
 - 関数適用が常に末尾再帰になる
-- 継続を用いることで評価戦略によらず評価順序が統一できる
+- 継続を用いることで評価戦略によらず評価順序が統一できる。関数の実行後の振る舞いも含めて制御できてしまうのが、継続のメリット
 
 理論的にも面白いことはたくさんあり big-step semantics の継続が small-step semantics になっていたりするらしい。
 
-cf. [継続とかの話題サーベイ \| κeenのHappy Hacκing Blog](https://keens.github.io/blog/2019/06/27/keizokutokanowadaisa_bei/)
+cf.
+- [継続とかの話題サーベイ \| κeenのHappy Hacκing Blog](https://keens.github.io/blog/2019/06/27/keizokutokanowadaisa_bei/)
+- [モナドから始めない継続入門 \- ゴバブログ](https://blog.7nobo.me/2018/01/14/01-haskell-continuation.html)
 
 ## 末尾再帰最適化って何してるのか
 処理系によるが関数呼び出しをループに変換してる
