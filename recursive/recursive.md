@@ -464,7 +464,7 @@ fact 0 (1 * 6)
 ``` haskell
 positive :: [Int] -> [Int]
 positive []   = []
-positive x:xs =
+positive (x:xs)
   | x > 0     = x : (positive xs)
   | otherwise = positive xs
 ```
