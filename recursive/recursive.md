@@ -3,6 +3,10 @@
 # 再帰関数の効率的な書き方
 * 末尾再帰の実装方法(アキュムレータを使うver 継続を使うver)
 
+## 発表動画
+- 前半: https://www.youtube.com/watch?v=d4nPqf7dKno
+- 後半: https://www.youtube.com/watch?v=C6VePCpYuZE
+
 # 目次
 * for 文 :-1: -> 再帰関数 :+1:
 * なぜ普通の再帰よりも末尾再帰が(計算効率的に)良いのか
