@@ -4,7 +4,7 @@
 * 末尾再帰の実装方法(アキュムレータを使うver 継続を使うver)
 
 ## 発表動画
-- 前半: https://www.youtube.com/watch?v=d4nPqf7dKno
+- 前半: https://www.youtube.com/watch?v=d4nPqf7dKno&t=14
 - 後半: https://www.youtube.com/watch?v=C6VePCpYuZE
 
 # 目次
