@@ -475,8 +475,8 @@ positive (x:xs)
 positive :: [Int] -> [Int] -> [Int]
 positive []   acc = acc
 positive x:xs acc =
-  | x > 0     = positive xs (acc ++ [x])
---| x > 0     = positive xs (x:acc) だと [1,2,3] ~> [3,2,1] のように順番が変わってしまう
+  | x > 0     = positive xs (acc ++ [x]) -- haskell の list は連結リストなのでこのやり方は時間がかかる。 : を使いたい
+--| x > 0     = positive xs (x:acc) -- しかし、この方法だと [1,2,3] ~> [3,2,1] のように順番が変わってしまう
   | otherwise = positive xs
 ```
 
