@@ -474,10 +474,10 @@ positive (x:xs)
 ``` haskell
 positive :: [Int] -> [Int] -> [Int]
 positive []   acc = acc
-positive x:xs acc =
+positive x:xs acc
   | x > 0     = positive xs (acc ++ [x]) -- haskell の list は連結リストなのでこのやり方は時間がかかる。 : を使いたい
---| x > 0     = positive xs (x:acc) -- しかし、この方法だと [1,2,3] ~> [3,2,1] のように順番が変わってしまう
-  | otherwise = positive xs
+-- | x > 0     = positive xs (x:acc) -- しかし、この方法だと [1,2,3] ~> [3,2,1] のように順番が変わってしまう
+  | otherwise = positive xs acc
 ```
 
 リストの最後にくっつけるには、リストの長さに比例した時間がかかるので、（小さなプログラムでは気にならないかもしれませんが、）ちょっと避けたい事態です。
@@ -557,8 +557,8 @@ add' :: Int -> Int -> (Int -> Int) -> Int
 add' x y cont = cont (x + y)
 
 main = do
-  show (add 1 2)
-  add' 1 2 (\x -> show x)
+  print $ add 1 2
+  print $ add' 1 2 (\x -> x)
 ```
 
 cf.
@@ -590,7 +590,7 @@ fact n acc = fact (n - 1) (n * acc)
 ``` haskell
 fact :: Int -> (Int -> Int) -> Int
 fact 0 cont = cont 1
-fact n cont = fact (n-1) (\x -> cont(n*x))
+fact n cont = fact (n -1) (\x -> cont (n * x))
 ```
 
 </details>
