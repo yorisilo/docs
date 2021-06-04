@@ -71,7 +71,7 @@ FZF-EOF"
 
 # git の root を一発で飛ぶ
 
-リポジトリ内ののどこにいても root ディレクトリへ飛ぶ
+リポジトリ内のどこにいても root ディレクトリへ飛ぶ
 ``` shell
 cd `git rev-parse --show-toplevel`
 ```
