@@ -3,7 +3,8 @@
 - ブラウザに一度保存すれば、次から勝手に cookie を送る
 - Origin に関係なくどこにでも送る (CORS を気にしないで送れる)
 - 長さの制限しか無い(任意のシリアライズされた値を入れることができる)
-
+cf.
+- [HTTP Cookie の使用 \- HTTP \| MDN](https://developer.mozilla.org/ja/docs/Web/HTTP/Cookies)
 
 <details>
 <summary>Origin とは</summary>
@@ -20,7 +21,6 @@ HTTP の Set-Cookie レスポンスヘッダーは、サーバーがユーザー
 ``` http
 Set-Cookie: <cookie-name>=<cookie-value>
 ```
-
 
 例: サーバーのクライアントへのレスポンス
 

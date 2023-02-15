@@ -1,3 +1,14 @@
+---
+theme: base-theme
+style: |
+  section {
+    background-color: #ccc;
+    width: auto;
+    height: auto;
+  }
+headingDivider: 1
+---
+
 # フロントエンドの歴史を振り返りつつ概観を学ぶ
 js の開発の変遷
 - スクリプトタグの列挙
