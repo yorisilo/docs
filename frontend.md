@@ -45,7 +45,13 @@ script タグは上から順番に読み込まれる
 a.js 内で定義してる関数を b.js で使用している場合は、 a を読み込んで b を読み込むみたいに書かないとダメ
 
 ## tutorial 1
-- hoge
+https://github.com/yorisilo/frontend-sandbox を使う
+
+``` shell
+cd packages/tutorial-01
+npm ci
+npm run dev
+```
 
 # web ページ の表示
 ページが表示されるまで
@@ -93,7 +99,13 @@ cf.
 - [そろそろ知っておきたいHTTP/2の話 \- Qiita](https://qiita.com/mogamin3/items/7698ee3336c70a482843)
 
 ## tutorial 2
-- hoge
+https://github.com/yorisilo/frontend-sandbox を使う
+
+``` shell
+cd packages/tutorial-02
+npm ci
+npm run dev
+```
 
 # 仕様から見えてきた課題
 - `*.js` の依存関係の解決
