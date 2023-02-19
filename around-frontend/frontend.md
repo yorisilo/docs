@@ -4,7 +4,8 @@ style: |
   section {
     background-color: #ccc;
     width: auto;
-    height: auto;
+    justify-content: start;
+    padding: 50px;
   }
 headingDivider: 1
 ---
@@ -39,7 +40,7 @@ JavaScript の標準化された仕様 https://262.ecma-international.org/13.0/
 
 </details>
 
-ランタイムによって、言語の実装が異なる。
+# ランタイムによって、言語の実装が異なる。
 - ブラウザ
 - Nodejs
 - Deno など
@@ -60,7 +61,7 @@ JavaScript の標準化された仕様 https://262.ecma-international.org/13.0/
 - ファイル間で依存がある場合は依存に合わせて読み込む必要あり
   - a.js 内で定義してる関数を b.js で使用している場合は、 a を読み込んで b を読み込むみたいに書かないとダメ
 
-## tutorial 1
+# tutorial 1
 https://github.com/yorisilo/frontend-sandbox を使う
 
 ``` shell
@@ -74,7 +75,7 @@ npm run dev
 - URL にアクセスすると、サーバーから HTML が返却される
 - HTML に記載されたリソースの取得が始まる
 
-## web ページが表示されるまでの流れ
+# web ページが表示されるまでの流れ
 ### html を取得するまで(HTTP 1.X)
 - ブラウザにアドレスを入力
 - DNS サーバーに問い合わせ (FQDN(ホスト + ドメイン名) -> IP)
@@ -85,6 +86,7 @@ npm run dev
 - https://github.com/yorisilo/go-httpd/blob/master/slide/02/network.md
 - https://github.com/yorisilo/go-httpd/blob/master/slide/02/networkcomand.md
 
+# web ページが表示されるまでの流れ
 ### html を取得してブラウザで web ページが表示されるまで
 - HTML ファイルをパース
 - CSS ファイル JS ファイルの参照を解析
@@ -115,7 +117,7 @@ cf.
 - [HTTP/1\.x のコネクション管理 \- HTTP \| MDN](https://developer.mozilla.org/ja/docs/Web/HTTP/Connection_management_in_HTTP_1.x)
 - [そろそろ知っておきたいHTTP/2の話 \- Qiita](https://qiita.com/mogamin3/items/7698ee3336c70a482843)
 
-## tutorial 2
+# tutorial 2
 https://github.com/yorisilo/frontend-sandbox を使う
 
 ``` shell
@@ -161,6 +163,9 @@ cf. https://github.com/gulp-community/gulp-concat
 ![](frontend.md_imgs/20230215_020219.png)
 青色丸も黄色丸も 500 x 1000 px とする。
 
+<details>
+<summary>gulp css sprite</summary>
+
 ``` javascript
 var gulp = require('gulp');
 var spritesmith = require('gulp.spritesmith');
@@ -185,9 +190,17 @@ gulp.task('sprite', () => {
 gulp.task('default', ['sprite']);
 ```
 
+
+</details>
+
+# ファイル結合 CSS スプライト
+
 これを実行すると以下を行う
 - 余白を削除して画像を敷き詰める
 - それぞれの画像を取得する css を生成する
+
+<details>
+<summary>css output</summary>
 
 ``` css
 .blue {
@@ -199,6 +212,10 @@ gulp.task('default', ['sprite']);
   background-position: 0 -500px;
 }
 ```
+
+</details>
+
+
 
 ファイルの結合による利用コネクション数の削減以外でも利点があり、
 - css の background に指定した画像は表示したときに初めてリクエストが飛ぶという仕様があり、たとえば、 hover したタイミングで画像を表示する UI の場合そのタイミングで画像を取得するので一瞬遅いとかがある。だが、 1ファイルにまとめられていると、最初になにかの画像が表示されたら他の画像のリクエストが飛ばずにすぐ表示されるというメリットもある。
@@ -234,6 +251,8 @@ browserify
 - トップレベルで変数等を宣言してもグローバルスコープにならない
 - この時期から、書いたコードを直接実行するのではなくて、ブラウザが読めるものに変換してからブラウザに読み込ませるという方法が普及しだした。
 
+# JavaScript の依存関係の解決 browserify
+
 ``` javascript
 hello = (name) => {
   return `hello ${name}`;
@@ -246,7 +265,7 @@ var hello = require("./hello.js");
 console.log(hello("takeshi"));
 ```
 
-## browserify の登場によって解決したこと
+# browserify の登場によって解決したこと
 - require による依存関係の解決
   - Node.js でのみ使えていた require をいい感じにブラウザで使えるようにトランスパイルすることによって、ファイルが依存しているファイルという構造をコード上で表現可能になった。(require は npm パッケージも読み込める)
 - npm package(https://www.npmjs.com/) の利用もできるようになった
@@ -260,7 +279,7 @@ console.log(hello("takeshi"));
 - より広範囲のリソースをターゲットにした bundler
   - html, css, 画像等も JavaScript として扱う発想
 
-## webpack
+# webpack
 - js ファイル以外も import 可能になった。 `require('foo.css')` や `import foo from 'foo.css'` こんなことができる。
 - CSS ファイルの場合(sass-loader を使えば scss とかも js で require できる)
   - css-loader が css ファイルの依存関係を解決
