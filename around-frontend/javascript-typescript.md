@@ -204,6 +204,34 @@ getData(function(data1) {
 この問題を解決するため ECMAScript2015 にて、 Promise が導入された。
 Promiseは、非同期処理が完了したときにresolve関数を呼び出すことで成功した結果を返し、reject関数を呼び出すことで失敗した結果を返す。これにより、 callback hell を回避することができる。
 
+
+<details>
+<summary> getData, getMoreData の例</summary>
+
+``` javascript
+const getData = async () => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve('data1');
+    }, 1000);
+  });
+};
+
+const getMoreData = () => {
+  let index = 2;
+  return async (data) => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(`${data} data${index++}`);
+      }, 1000);
+    });
+  };
+};
+```
+
+</details>
+
+
 ``` javascript
 getData()
   .then(function(data1) {
@@ -217,6 +245,7 @@ getData()
   })
   .then(function(data4) {
     // さらに多くの処理
+    console.log(data4);
   });
 ```
 
