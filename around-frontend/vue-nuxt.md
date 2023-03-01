@@ -468,6 +468,10 @@ React でいう children に近いやつ
 
 cf. [スロット \| Vue\.js](https://ja.vuejs.org/guide/components/slots.html)
 
+# composables
+React の custom hooks みたいなやつ
+cf. [Composables \| Vue\.js](https://vuejs.org/guide/reusability/composables.html)
+
 # vue3 で新たに追加された provide/inject
 - props/emit
 - provide/inject
@@ -515,7 +519,15 @@ export default {
 - [Moving from Vue 2's Option API to Vue 3's Composition API \- Terabyte Tiger](https://terabytetiger.com/lessons/moving-from-vue-2-to-vue-3-composition-api)
 
 # Nuxt3
-...
+cf.
+- [Nuxt: The Intuitive Web Framework](https://nuxt.com/)
+- [神回\|vue3\.js nuxt3 typescriptどうやる？【ゼロから解説】 \| 合同会社FIELD](https://field.asia/%E7%A5%9E%E5%9B%9Evue3-js-nuxt3-typescript%E3%81%A9%E3%81%86%E3%82%84%E3%82%8B%EF%BC%9F%E3%80%90%E3%82%BC%E3%83%AD%E3%81%8B%E3%82%89%E8%A7%A3%E8%AA%AC%E3%80%91/)
+
+## 状態管理
+useState
+
+- [Nuxt3入門\(第8回\) \- Nuxt3のuseStateでコンポーネント間で状態を共有する \| 豆蔵デベロッパーサイト](https://developer.mamezou-tech.com/nuxt/nuxt3-state-management/)
+- [Nuxt3のComposablesとuseStateと状態管理 \- くらげになりたい。](https://www.memory-lovers.blog/entry/2022/06/04/180000)
 
 # 参考
 - [過去のコードをComposition APIを使って書き直してみる（前編） : ビジネスとIT活用に役立つ情報（株式会社アーティス）](https://www.asobou.co.jp/blog/web/composition-api1)
