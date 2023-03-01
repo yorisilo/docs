@@ -3,10 +3,9 @@
 # 流れ
 ## vue2 vs vue3
 - vue2 と vue3 の書き方の違いを具体的に見つつ、どの点が vue3 のほうが優れているのかを説明していく
-- vue2 optinos api
-- vue2 optinos api のみ optinos api と composition api の合わせ技、 composition api のみ
-- composition api の setup 関数と script setup
-  - script setup を使うべき
+- vue2 Optinos API と Composition API
+- ディレクティブ
+
 ## 演習
 - 演習にて vue2(options api) -> vue3(options api) -> vue3(composition api) へ書き直していく。
   - SPA かつ CSR の実装だったので、 SPA かつ SSR にすべく、 Nuxt3 を導入する。
