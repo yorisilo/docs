@@ -155,9 +155,10 @@ cf.
 - [Introduction \| Vue\.js](https://vuejs.org/guide/introduction.html#api-styles)
 
 ## `<script setup>` 構文
+
 cf.
 - [【Vue3】script setup構文の使用方法とメリット【propsとemitsも解説】 \- TeKRog](https://tekrog.com/vue3-script-setup/)
-- [<script setup> \| Vue\.js](https://vuejs.org/api/sfc-script-setup.html#basic-syntax)
+- [script setup \| Vue\.js](https://vuejs.org/api/sfc-script-setup.html#basic-syntax)
 
 ## Options API vs Composition API
 cf. https://vuejs.org/guide/extras/composition-api-faq.html#more-flexible-code-organization
