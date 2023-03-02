@@ -466,13 +466,13 @@ cf. [【Vue\.js3】カスタムコンポーネントでv\-modelを使う方法](
 
 
 親コンポーネント
-``` vue
+``` html
 <Child v-model="text"/>
 ```
 
 子コンポーネント
 
-``` vue
+``` html
 <script lang="ts" setup>
 const props = defineProps<{modelValue: string}>()
 const emits = defineEmits<{(e: 'update:modelValue', text: string): void}>()
