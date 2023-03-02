@@ -266,7 +266,13 @@ export default {
 
 # Composition API
 ## ref
+cf. https://ja.vuejs.org/api/reactivity-core.html#ref
 リアクティブなデータを作るためのもの
+ref() でオブジェクトを定義した場合はオブジェクト全体はリアクティブであるし、個別のプロパティを更新した場合もオブジェクトのリアクティブ性は保たれている。
+
+### shallowRef
+cf. https://ja.vuejs.org/api/reactivity-advanced.html#shallowref
+shallowRef() でオブジェクトを定義した場合はオブジェクト全体はリアクティブであるが、個別のプロパティを更新した場合はオブジェクトのリアクティブ性は失われる。 `.value` アクセスしたときだけリアクティブである。
 
 ``` vue
 const count = ref(0);
@@ -285,7 +291,7 @@ const fullName = computed(() => `${firstName.value} ${lastName.value}`);
 
 ## reactive
 リアクティブなデータを作るためのもの
-(オブジェクトとして定義して、それぞれのプロパティがリアクティブになる。 ref() でオブジェクトを定義した場合はオブジェクト全体はリアクティブではあるが、個別のプロパティはリアクティブではない)
+(オブジェクトとして定義して、それぞれのプロパティがリアクティブになる)
 
 ``` vue
 const obj = reactive({
