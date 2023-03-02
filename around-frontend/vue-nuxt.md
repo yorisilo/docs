@@ -96,14 +96,68 @@ app.mount("#app");
 - app.use() を使用して、Vue Router をアプリケーションに統合する。
 - app.mount() を使用して、アプリケーションを特定の要素にマウントする。id が app の要素を対象にしている。
 
+cf.
+- [【Vue 3】Composition API の基本](https://b1san-blog.com/post/vue/vue-3-composition-api/)
+- [Composition API \| Vue\.js](https://v3.ja.vuejs.org/api/composition-api.html)
+- [Moving from Vue 2's Option API to Vue 3's Composition API \- Terabyte Tiger](https://terabytetiger.com/lessons/moving-from-vue-2-to-vue-3-composition-api)
+
 ## リアクティブ
 - リアクティブ: Vue.js では、値の変更を検知し、それに応じて自動的にビューを再レンダリングする機能を指す
 vue2 では data 内がリアクティブなデータになり, vue3 から ref or reactive という関数を使うことで、リアクティブなデータを作成できる。
 
+## SFC (Single File Component)
+hoge.vue 形式の以下のようなファイル(template, logic, style を一つにまとめるやりかた)。いわゆるコンポーネント思考なファイル構造
+この形式で書くと、 build tool が必要
+
+
+``` html
+<template>
+  <p class="greeting">{{ greeting }}</p>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      greeting: 'Hello World!'
+    }
+  }
+}
+</script>
+
+<style>
+.greeting {
+  color: red;
+  font-weight: bold;
+}
+</style>
+```
+
+vue3 以降は script -> template -> style という順番で書くことを推奨している。
+
+``` html
+<script setup lang="ts" >
+...
+</script>
+
+<template>
+...
+</template>
+
+<style>
+...
+</style>
+```
+
+cf.
+- [単一ファイルコンポーネント \| Vue\.js](https://v3.ja.vuejs.org/guide/single-file-component.html#%E5%89%8D%E6%9B%B8%E3%81%8D)
+- [SFC 構文の仕様 \| Vue\.js](https://v3.ja.vuejs.org/api/sfc-spec.html)
+- [Introduction \| Vue\.js](https://vuejs.org/guide/introduction.html#api-styles)
 
 ## `<script setup>` 構文
 cf.
 - [【Vue3】script setup構文の使用方法とメリット【propsとemitsも解説】 \- TeKRog](https://tekrog.com/vue3-script-setup/)
+- [<script setup> \| Vue\.js](https://vuejs.org/api/sfc-script-setup.html#basic-syntax)
 
 ## Options API vs Composition API
 cf. https://vuejs.org/guide/extras/composition-api-faq.html#more-flexible-code-organization
@@ -496,50 +550,14 @@ React の custom hooks みたいなやつ
 cf. [Composables \| Vue\.js](https://vuejs.org/guide/reusability/composables.html)
 
 # vue3 で新たに追加された provide/inject
-- props/emit
-- provide/inject
+cf.
+- [Provide / Inject \| Vue\.js](https://ja.vuejs.org/guide/components/provide-inject.html)
 
-# class component vs vue-property-decorator (ts) vs vue extend (ts) vs script setup
+# コンポーネントの作り方: class component vs vue-property-decorator (ts) vs vue extend (ts) vs script setup
 - [vue\-property\-decorator \+ TypeScriptで書かれたVueコンポーネントをscript setupで書き換える](https://zenn.dev/r57ty7/articles/53d189afa27aeb)
 - [TypeScriptでVueコンポーネントを開発する方法 \| NHN Cloud Meetup](https://meetup-jp.toast.com/1843)
 
 cushion は、 vue.extend を使ってる
-
-# SFC (Single File Component)
-hgoe.vue 形式の以下のようなファイル(template, logic, style を一つにまとめるやりかた)。いわゆるコンポーネント思考なファイル構造
-この形式で書くと、 build tool が必要
-
-
-``` vue
-<template>
-  <p class="greeting">{{ greeting }}</p>
-</template>
-
-<script>
-export default {
-  data() {
-    return {
-      greeting: 'Hello World!'
-    }
-  }
-}
-</script>
-
-<style>
-.greeting {
-  color: red;
-  font-weight: bold;
-}
-</style>
-```
-
-- [単一ファイルコンポーネント \| Vue\.js](https://v3.ja.vuejs.org/guide/single-file-component.html#%E5%89%8D%E6%9B%B8%E3%81%8D)
-- [SFC 構文の仕様 \| Vue\.js](https://v3.ja.vuejs.org/api/sfc-spec.html)
-
-# vue2 -> vue3 の違い
-- [【Vue 3】Composition API の基本](https://b1san-blog.com/post/vue/vue-3-composition-api/)
-- [Composition API \| Vue\.js](https://v3.ja.vuejs.org/api/composition-api.html)
-- [Moving from Vue 2's Option API to Vue 3's Composition API \- Terabyte Tiger](https://terabytetiger.com/lessons/moving-from-vue-2-to-vue-3-composition-api)
 
 # Nuxt3
 cf.
