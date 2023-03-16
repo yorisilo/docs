@@ -9,8 +9,6 @@ OWASP
 - CSRF
 - Vue, Nuxt でのセキュリティ
 
-# HTTPS
-
 # オリジン
 ex. `https://example.com:443/path/to/index.html`
 - `https://example.com:443` がオリジン
