@@ -18,26 +18,6 @@
 # ディレクトリ構成
 - cf. https://nuxt.com/docs/guide/directory-structure/nuxt
 
-cf. [Nuxt\.jsにserverMiddlewareのHMRサポートが追加されました\(2020年3月18日追記\) \| 株式会社Japonline](https://www.japon-line.co.jp/tech/post/nuxt-js%E3%81%ABservermiddleware%E3%81%AEhmr%E3%82%B5%E3%83%9D%E3%83%BC%E3%83%88%E3%81%8C%E8%BF%BD%E5%8A%A0%E3%81%95%E3%82%8C%E3%82%8B%E4%BA%88%E5%AE%9A%E3%81%A7%E3%81%99/)
-``` vue
-// pages/index.vue
-async getUser() {
-    const user = await this.$axios.$get('/api/getUser')
-}
-
-// server/index.js
-app.use('/getUser', async function(req, res, next) {
-    try {
-        const data = await DBやAPIリクエスト処理 // process.env.secret_keyなどで参照
-        res.status(200).json(data)
-    } catch (err) {
-        res.status(400).json(...)
-    }
-})
-```
-
-cf. [Nuxt3のserver/apiとuseFetchを使用してShopifyへサーバーAPIリクエストを実装 \- 独学プログラマ](https://blog.cloud-acct.com/posts/nuxt3-shopify-server-api-request/#%E5%95%86%E5%93%81%E4%B8%80%E8%A6%A7%E3%82%92%E5%8F%96%E5%BE%97%E3%81%99%E3%82%8Bapi%E3%82%92%E4%BD%9C%E6%88%90%E3%81%99%E3%82%8B)
-
 ## .next/
 nuxt dev 実行時に生成される仮想的なファイルシステム
 たとえば、 Nuxt が自動インポートするためにここに随時変更が入ったりする。 なので、 nuxt dev は基本的に開発時は実行しっぱなしにする。
@@ -132,6 +112,7 @@ export default defineEventHandler((event) => {
 ```
 
 この API を利用するには `await $fetch('/api/hello')` とすれば良い
+実際は $fetch をそのまま使うよりも useFetch を使った方が良い。
 
 ### server/routes/
 
@@ -281,3 +262,4 @@ cf.
 - [Nuxt 3 State Management: Pinia vs useState \| Vue Mastery](https://www.vuemastery.com/blog/nuxt-3-state-mangement-pinia-vs-usestate/)
 - [Nuxt3入門\(第1回\) \- Nuxtがサポートするレンダリングモードを理解する \| 豆蔵デベロッパーサイト](https://developer.mamezou-tech.com/nuxt/nuxt3-rendering-mode/)
 - [Nuxt3のComposablesとuseStateと状態管理 \- くらげになりたい。](https://www.memory-lovers.blog/entry/2022/06/04/180000)
+- [Nuxt3のserver/apiとuseFetchを使用してShopifyへサーバーAPIリクエストを実装 \- 独学プログラマ](https://blog.cloud-acct.com/posts/nuxt3-shopify-server-api-request/#%E5%95%86%E5%93%81%E4%B8%80%E8%A6%A7%E3%82%92%E5%8F%96%E5%BE%97%E3%81%99%E3%82%8Bapi%E3%82%92%E4%BD%9C%E6%88%90%E3%81%99%E3%82%8B)
