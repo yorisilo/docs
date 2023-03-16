@@ -1,5 +1,6 @@
 # フロントエンドのセキュリティ
-OWASP
+- OWASP(Open Web Application Security Project) が公開している脆弱性一覧
+  - https://www.synopsys.com/ja-jp/glossary/what-is-owasp-top-10.html
 
 # 一般的なセキュリティ
 - オリジン
