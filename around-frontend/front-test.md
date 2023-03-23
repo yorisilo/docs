@@ -53,7 +53,11 @@
 https://github.com/yorisilo/frontend-sandbox/tree/main/packages/testing/
 
 # vitest と jest の違い
+[Vitest \| A blazing fast unit test framework powered by Vite](https://vitest.dev/)
 - vitest: vite と jest 組み合わせてみました的なやつ
+- vite 環境のためのテストフレームワーク
+- jest と互換性がある
+- メジャーバージョンはまだ出てない 2023-03-23 Thu 09:44:29 時点で v0.29.7
 
 # nuxt でのテスト
 nuxt で test しようとするとめちゃくちゃつらい。
